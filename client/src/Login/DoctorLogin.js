@@ -47,11 +47,18 @@ const DoctorLogin = ({ handleCallBack }) => {
     fetch(url, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        handleCallBack(emailId, data.access_token, true, "Doctor's Dashboard");
         if (!data.access_token) {
           setError("Wrong Credentials!!");
           errRef.current.focus();
-        } else setSuccess(true);
+        } else {
+          handleCallBack(
+            emailId,
+            data.access_token,
+            true,
+            "Doctor's Dashboard"
+          );
+          setSuccess(true);
+        }
       })
       .catch((error) => console.error("Error", error))
       .finally(() => {
