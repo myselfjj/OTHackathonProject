@@ -105,6 +105,7 @@ app.post("/addPrescription", async (req, res) => {
     console.log(
       `Prescription count for ${patientMailId}: ${prescriptionCount}`
     );
+    const finalCount = (parseInt(prescriptionCount) + 1).toString();
 
     const check = await db.collection("patientData").updateOne(
       { patientMailId: patientMailId },
@@ -112,7 +113,7 @@ app.post("/addPrescription", async (req, res) => {
         $push: {
           prescription: {
             prescriptionName: prescriptionName,
-            prescriptionId: parseInt(prescriptionCount) + 1,
+            prescriptionId: finalCount,
             addedOn: addedOn,
             doctorName: doctorName,
             hideFromDoctorId: [],
